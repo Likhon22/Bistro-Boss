@@ -17,7 +17,7 @@ const PizzaMenu = () => {
           btnText={"Order Your Favorite FOOD"}
         ></CategoryMenu>
       </div>
-      <NavLink>
+      <NavLink to={"http://localhost:5173/our-shop/pizza"}>
         <ViewMenuButton btnText={"Order Your Favorite FOOD"}></ViewMenuButton>
       </NavLink>
     </div>

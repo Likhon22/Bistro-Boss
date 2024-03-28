@@ -7,7 +7,7 @@ const HeadingText = ({
   subTextColor = "#D99904",
 }) => {
   return (
-    <div className="flex flex-col justify-center gap-1 items-center my-12">
+    <div className="flex flex-col justify-center gap-1 items-center py-12">
       <p
         className="font-medium text-lg border-b-2 pb-2"
         style={{ color: subTextColor }}

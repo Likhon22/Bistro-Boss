@@ -4,15 +4,13 @@ import ViewMenuButton from "../Button/ViewMenuButton";
 
 const OfferedMenu = () => {
   return (
-    <div>
+    <div className="mb-32">
       <CategoryMenu
         category={"offered"}
         btnText={"Order Your Favorite FOOD"}
         heading={"TODAY'S OFFER"}
         subHeading={"Don't miss"}
       ></CategoryMenu>
-
-      <ViewMenuButton btnText={"Order Your Favorite FOOD"}></ViewMenuButton>
     </div>
   );
 };

@@ -18,7 +18,7 @@ const SaladMenu = () => {
           btnText={"Order Your Favorite FOOD"}
         ></CategoryMenu>
       </div>
-      <NavLink>
+      <NavLink to={"http://localhost:5173/our-shop/salad"}>
         <ViewMenuButton btnText={"Order Your Favorite FOOD"}></ViewMenuButton>
       </NavLink>
     </div>

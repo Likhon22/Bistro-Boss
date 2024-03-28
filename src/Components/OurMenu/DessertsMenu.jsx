@@ -13,7 +13,7 @@ const DessertsMenu = () => {
       <div className="mt-16">
         <CategoryMenu category={"dessert"}></CategoryMenu>
       </div>
-      <NavLink>
+      <NavLink to={"http://localhost:5173/our-shop/dessert"}>
         <ViewMenuButton btnText={"Order Your Favorite FOOD"}></ViewMenuButton>
       </NavLink>
     </div>

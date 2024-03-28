@@ -1,12 +1,20 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
+import { useLocation } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 const Main = () => {
+  const location = useLocation();
+  const noNavbarFooter =
+    location?.pathname.includes("/register") ||
+    location?.pathname.includes("/login");
+
   return (
     <div>
-      <Navbar></Navbar>
+      {noNavbarFooter ? "" : <Navbar></Navbar>}
       <Outlet />
-      <Footer></Footer>
+      {noNavbarFooter ? "" : <Footer></Footer>}
+      <Toaster />
     </div>
   );
 };

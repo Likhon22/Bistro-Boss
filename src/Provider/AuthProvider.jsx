@@ -24,22 +24,23 @@ const AuthProvider = ({ children }) => {
       return unsSubscribe();
     };
   }, []);
-  const update = (name, photo) => {
+  const update = (name) => {
+    setLoader(true);
     return updateProfile(auth.currentUser, {
       displayName: name,
-      photoURL: photo,
+      // photoURL: photo,
     });
   };
   const register = (email, password) => {
-    setLoader(false);
+    setLoader(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const login = (email, password) => {
-    setLoader(false);
+    setLoader(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
   const logout = () => {
-    setLoader(false);
+    setLoader(true);
     return signOut(auth);
   };
   const authInfo = {

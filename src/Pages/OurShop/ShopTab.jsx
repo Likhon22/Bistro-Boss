@@ -13,14 +13,14 @@ const ShopTab = ({ category }) => {
   const [tabIndex, setTabIndex] = useState(initialIndex);
   const limit = 5;
   const [saladPage, setSaladPage] = useState(1);
-  console.log(saladPage);
+
   const [pizzaPage, setPizzaPage] = useState(1);
   const [soupPage, setSoupPage] = useState(1);
   const [dessertPage, setDessertPage] = useState(1);
   const [drinkPage, setDrinkPage] = useState(1);
 
   // salad
-  const [salad] = useCategoryWithPagination({
+  const [salad, saladLoading] = useCategoryWithPagination({
     category: "salad",
     limit: limit,
     currentPage: saladPage,
@@ -30,7 +30,7 @@ const ShopTab = ({ category }) => {
   console.log(saladTotalPage, saladTotal);
 
   //   pizza
-  const [pizza] = useCategoryWithPagination({
+  const [pizza, pizzaLoading] = useCategoryWithPagination({
     category: "pizza",
     limit: limit,
     currentPage: pizzaPage,
@@ -38,7 +38,7 @@ const ShopTab = ({ category }) => {
   const pizzaTotal = pizza?.total;
   const pizzaTotalPage = Number(Math.ceil(pizzaTotal / limit));
   //   soup
-  const [soup] = useCategoryWithPagination({
+  const [soup, soupLoading] = useCategoryWithPagination({
     category: "soup",
     limit: limit,
     currentPage: soupPage,
@@ -46,7 +46,7 @@ const ShopTab = ({ category }) => {
   const soupTotal = soup?.total;
   const soupTotalPage = Number(Math.ceil(soupTotal / limit));
   //   dessert
-  const [dessert] = useCategoryWithPagination({
+  const [dessert, dessertLoading] = useCategoryWithPagination({
     category: "dessert",
     limit: limit,
     currentPage: dessertPage,
@@ -55,7 +55,7 @@ const ShopTab = ({ category }) => {
   const dessertTotalPage = Number(Math.ceil(dessertTotal / limit));
 
   // drinks
-  const [drink] = useCategoryWithPagination({
+  const [drink, drinkLoading] = useCategoryWithPagination({
     category: "drinks",
     limit: limit,
     currentPage: drinkPage,
@@ -70,7 +70,7 @@ const ShopTab = ({ category }) => {
     },
   };
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl min-h-screen mx-auto">
       <Tabs
         selectedIndex={tabIndex}
         onSelect={(tabIndex) => setTabIndex(tabIndex)}
@@ -86,11 +86,17 @@ const ShopTab = ({ category }) => {
         </div>
         {/* salad */}
         <TabPanel>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12  ">
-            {salad?.result?.map((item) => (
-              <CartCard menu={item}></CartCard>
-            ))}
-          </div>
+          {saladLoading ? (
+            <div className="flex justify-center items-center">
+              <span className="loading loading-spinner text-warning"></span>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12  ">
+              {salad?.result?.map((item) => (
+                <CartCard menu={item}></CartCard>
+              ))}
+            </div>
+          )}
 
           <div className="mt-12">
             {Array.from({ length: saladTotalPage }, (_, index) => {
@@ -113,11 +119,17 @@ const ShopTab = ({ category }) => {
         </TabPanel>
         {/* pizza */}
         <TabPanel>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12  ">
-            {pizza?.result?.map((item) => (
-              <CartCard menu={item}></CartCard>
-            ))}
-          </div>
+          {pizzaLoading ? (
+            <div className="flex justify-center items-center">
+              <span className="loading loading-spinner text-warning"></span>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12  ">
+              {pizza?.result?.map((item) => (
+                <CartCard menu={item}></CartCard>
+              ))}
+            </div>
+          )}{" "}
           <div className="mt-12">
             {Array.from({ length: pizzaTotalPage }, (_, index) => {
               const pageNumber = index + 1;
@@ -139,11 +151,17 @@ const ShopTab = ({ category }) => {
         </TabPanel>
         {/* Soup */}
         <TabPanel>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12  ">
-            {soup?.result?.map((item) => (
-              <CartCard menu={item}></CartCard>
-            ))}
-          </div>
+          {soupLoading ? (
+            <div className="flex justify-center items-center">
+              <span className="loading loading-spinner text-warning"></span>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12  ">
+              {soup?.result?.map((item) => (
+                <CartCard menu={item}></CartCard>
+              ))}
+            </div>
+          )}
 
           <div className="mt-12">
             {Array.from({ length: soupTotalPage }, (_, index) => {
@@ -166,11 +184,17 @@ const ShopTab = ({ category }) => {
         </TabPanel>
         {/* dessert */}
         <TabPanel>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12  ">
-            {dessert?.result?.map((item) => (
-              <CartCard menu={item}></CartCard>
-            ))}
-          </div>
+          {dessertLoading ? (
+            <div className="flex justify-center items-center">
+              <span className="loading loading-spinner text-warning"></span>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12  ">
+              {dessert?.result?.map((item) => (
+                <CartCard menu={item}></CartCard>
+              ))}
+            </div>
+          )}
           <div className="mt-12">
             {Array.from({ length: dessertTotalPage }, (_, index) => {
               const pageNumber = index + 1;
@@ -192,11 +216,17 @@ const ShopTab = ({ category }) => {
         </TabPanel>
         {/* drinks */}
         <TabPanel>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12  ">
-            {drink?.result?.map((item) => (
-              <CartCard menu={item}></CartCard>
-            ))}
-          </div>
+          {dessertLoading ? (
+            <div className="flex justify-center items-center">
+              <span className="loading loading-spinner text-warning"></span>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12  ">
+              {drink?.result?.map((item) => (
+                <CartCard menu={item}></CartCard>
+              ))}
+            </div>
+          )}
           <div className="mt-12">
             {Array.from({ length: drinkTotalPage }, (_, index) => {
               const pageNumber = index + 1;

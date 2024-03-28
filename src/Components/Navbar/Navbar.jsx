@@ -1,7 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Container from "../Container/Container";
-
+import useAuth from "../../hooks/useAuth";
+import { BsCart4 } from "react-icons/bs";
+import useCart from "../../hooks/useCart";
 const Navbar = () => {
+  const { user, logout } = useAuth();
+  const [cartItem, refetch] = useCart();
+  console.log(cartItem);
   const links = (
     <>
       <li>
@@ -44,7 +49,7 @@ const Navbar = () => {
           Our Menu
         </NavLink>
       </li>
-      <li>
+      <li className="flex justify-center items-center">
         <NavLink
           className={({ isActive }) =>
             isActive ? "text-yellow-500 font-bold" : "text-white"
@@ -53,6 +58,31 @@ const Navbar = () => {
         >
           Our Shop
         </NavLink>
+        {user ? (
+          <button className="btn bg-black text-white border-0 bg-opacity-0 hover:bg-opacity-0 relative mr-5 ml-2">
+            <BsCart4 className="text-3xl  text-green-600"></BsCart4>
+            <div className="badge absolute text-xs mt-9 ml-6 bg-yellow-500 border-none text-white ">
+              {cartItem?.length}
+            </div>
+          </button>
+        ) : (
+          ""
+        )}
+      </li>
+
+      <li>
+        {user ? (
+          <button
+            onClick={() => logout()}
+            className=" text-white btn btn-outline  "
+          >
+            Logout
+          </button>
+        ) : (
+          <Link to={"/login"}>
+            <button className=" text-white btn  btn-outline">Login</button>
+          </Link>
+        )}
       </li>
     </>
   );
@@ -96,7 +126,9 @@ const Navbar = () => {
             </NavLink>
           </div>
           <div className="navbar-end hidden lg:flex">
-            <ul className="menu menu-horizontal px-1">{links}</ul>
+            <ul className=" menu-horizontal px-1 justify-center items-center gap-4 py-3">
+              {links}
+            </ul>
           </div>
         </div>
       </Container>
