@@ -12,10 +12,13 @@ export const categoryWiseMenu = async (category) => {
 export const getCategoryWithPagination = async (
   category,
   limit,
-  currentPage
+  currentPage,
+  sortField,
+  sortType
 ) => {
+  console.log(sortField, sortType);
   const { data } = await axiosSecure.get(
-    `/menu?category=${category}&limit=${limit}&currentPage=${currentPage}`
+    `/menu?category=${category}&sortField=${sortField}&sortType=${sortType}&limit=${limit}&currentPage=${currentPage}`
   );
   return data;
 };

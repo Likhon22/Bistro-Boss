@@ -17,10 +17,12 @@ const UserReview = () => {
     const details = form.details.value;
     const rating = ratingValue;
     const name = user.displayName;
+    const email = user?.email;
     const ratingInfo = {
       name,
       rating,
       details,
+      email,
     };
 
     try {
@@ -79,7 +81,7 @@ const UserReview = () => {
                   />
                 </div>
                 <div className="flex flex-col space-y-2  mt-8 ">
-                  <label className="ml-2">Which recipe you liked most?</label>
+                  <label className="ml-2">Please give a details review</label>
                   <textarea
                     placeholder="Review in detail"
                     className="py-2  pl-2 h-[200px]  rounded-lg"

@@ -2,13 +2,15 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 import { useState } from "react";
-import { Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+
 import useCategoryWithPagination from "../../hooks/useCategoryWithPagination";
 import CartCard from "../../Components/Card/CartCard";
 
 const ShopTab = ({ category }) => {
   const categories = ["salad", "pizza", "soup", "dessert", "drink"];
+  const [sortType, setSortType] = useState("");
+  const [sortField, setSortField] = useState("");
+
   const initialIndex = categories.indexOf(category);
   const [tabIndex, setTabIndex] = useState(initialIndex);
   const limit = 5;
@@ -19,21 +21,40 @@ const ShopTab = ({ category }) => {
   const [dessertPage, setDessertPage] = useState(1);
   const [drinkPage, setDrinkPage] = useState(1);
 
+  const handleSort = (e) => {
+    const selectOptions = e.target.value;
+
+    if (selectOptions === "Low to High") {
+      setSortField("price");
+      setSortType("asc");
+    }
+    if (selectOptions === "High to Low") {
+      setSortField("price");
+      setSortType("desc");
+    }
+    if (selectOptions === "Default") {
+      setSortField("");
+      setSortType("");
+    }
+  };
   // salad
   const [salad, saladLoading] = useCategoryWithPagination({
     category: "salad",
     limit: limit,
     currentPage: saladPage,
+    sortField: sortField,
+    sortType: sortType,
   });
   const saladTotal = salad?.total;
   const saladTotalPage = Number(Math.ceil(saladTotal / limit));
-  console.log(saladTotalPage, saladTotal);
 
   //   pizza
   const [pizza, pizzaLoading] = useCategoryWithPagination({
     category: "pizza",
     limit: limit,
     currentPage: pizzaPage,
+    sortField: sortField,
+    sortType: sortType,
   });
   const pizzaTotal = pizza?.total;
   const pizzaTotalPage = Number(Math.ceil(pizzaTotal / limit));
@@ -42,6 +63,8 @@ const ShopTab = ({ category }) => {
     category: "soup",
     limit: limit,
     currentPage: soupPage,
+    sortField: sortField,
+    sortType: sortType,
   });
   const soupTotal = soup?.total;
   const soupTotalPage = Number(Math.ceil(soupTotal / limit));
@@ -50,6 +73,8 @@ const ShopTab = ({ category }) => {
     category: "dessert",
     limit: limit,
     currentPage: dessertPage,
+    sortField: sortField,
+    sortType: sortType,
   });
   const dessertTotal = dessert?.total;
   const dessertTotalPage = Number(Math.ceil(dessertTotal / limit));
@@ -59,16 +84,12 @@ const ShopTab = ({ category }) => {
     category: "drinks",
     limit: limit,
     currentPage: drinkPage,
+    sortField: sortField,
+    sortType: sortType,
   });
   const drinkTotal = drink?.total;
   const drinkTotalPage = Number(Math.ceil(drinkTotal / limit));
 
-  const pagination = {
-    clickable: true,
-    renderBullet: function (index, className) {
-      return '<span class="' + className + '">' + (index + 1) + "</span>";
-    },
-  };
   return (
     <div className="max-w-7xl min-h-screen mx-auto">
       <Tabs
@@ -84,6 +105,17 @@ const ShopTab = ({ category }) => {
             <Tab>Drinks</Tab>
           </TabList>
         </div>
+        <select
+          className="select select-bordered w-full max-w-xs"
+          onChange={handleSort}
+        >
+          <option disabled selected>
+            Sort by Price
+          </option>
+          <option>Default</option>
+          <option>Low to High</option>
+          <option>High to Low</option>
+        </select>
         {/* salad */}
         <TabPanel>
           {saladLoading ? (

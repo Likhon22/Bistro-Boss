@@ -18,11 +18,15 @@ import Reservation from "./../Components/Dashboard/Reservation";
 import UserCart from "../Components/Dashboard/UserCart";
 import UserReview from "../Pages/Dashboard/UserReview";
 import ManageUser from "../Pages/Dashboard/ManageUser";
+import Payment from "../Pages/Dashboard/Payment";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -107,6 +111,22 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UserHome></UserHome>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "payment",
+        element: (
+          <PrivateRoute>
+            <Payment></Payment>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "payment-history",
+        element: (
+          <PrivateRoute>
+            <PaymentHistory></PaymentHistory>
           </PrivateRoute>
         ),
       },

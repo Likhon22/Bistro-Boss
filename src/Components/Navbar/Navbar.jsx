@@ -3,9 +3,11 @@ import Container from "../Container/Container";
 import useAuth from "../../hooks/useAuth";
 import { BsCart4 } from "react-icons/bs";
 import useCart from "../../hooks/useCart";
+import useRole from "../../hooks/useRole";
 const Navbar = () => {
   const { user, logout } = useAuth();
   const [cartItem, refetch] = useCart();
+  const [role] = useRole();
   console.log(cartItem);
   const links = (
     <>
@@ -30,14 +32,26 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "text-yellow-500 font-bold" : "text-white"
-          }
-          to={"dashboard"}
-        >
-          Dashboard
-        </NavLink>
+        {user && role === "Admin" && (
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "text-yellow-500 font-bold" : "text-white"
+            }
+            to={"/dashboard/admin-home"}
+          >
+            Dashboard
+          </NavLink>
+        )}
+        {user && role !== "Admin" && (
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "text-yellow-500 font-bold" : "text-white"
+            }
+            to={"/dashboard/user-home"}
+          >
+            Dashboard
+          </NavLink>
+        )}
       </li>
       <li>
         <NavLink
@@ -59,12 +73,15 @@ const Navbar = () => {
           Our Shop
         </NavLink>
         {user ? (
-          <button className="btn bg-black text-white border-0 bg-opacity-0 hover:bg-opacity-0 relative mr-5 ml-2">
-            <BsCart4 className="text-3xl  text-green-600"></BsCart4>
-            <div className="badge absolute text-xs mt-9 ml-6 bg-yellow-500 border-none text-white ">
-              {cartItem?.length}
-            </div>
-          </button>
+          <Link to={"/dashboard/user-cart"}>
+            {" "}
+            <button className="btn bg-black text-white border-0 bg-opacity-0 hover:bg-opacity-0 relative mr-5 ml-2">
+              <BsCart4 className="text-3xl  text-green-600"></BsCart4>
+              <div className="badge absolute text-xs mt-9 ml-6 bg-yellow-500 border-none text-white ">
+                {cartItem?.length}
+              </div>
+            </button>
+          </Link>
         ) : (
           ""
         )}

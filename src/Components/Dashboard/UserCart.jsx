@@ -1,16 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import useCart from "../../hooks/useCart";
 import HeadingText from "../HeadingText/HeadingText";
 import { MdDelete } from "react-icons/md";
-import { deleteCart } from "../../Utils/cart";
+import { deleteCart, getCartBySorting } from "../../Utils/cart";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../hooks/useAuth";
 
 const UserCart = () => {
-  const [cartItems, refetch] = useCart();
+  const { user } = useAuth();
+  const [sortType, setSortType] = useState("");
+  const [sortField, setSortField] = useState("");
+
+  const { data: cartItems = [], refetch } = useQuery({
+    queryKey: ["sort", sortField, sortType],
+    queryFn: async () => {
+      return await getCartBySorting(user?.email, sortField, sortType);
+    },
+  });
   const totalPrice = cartItems.reduce(
     (initialPrice, currentPrice) => initialPrice + currentPrice.price,
     0
   );
+  const handleSorting = (e) => {
+    const selectOptions = e.target.value;
+    console.log(selectOptions);
+    if (selectOptions === "Low to High") {
+      setSortField("price");
+      setSortType("asc");
+    }
+    if (selectOptions === "High to Low") {
+      setSortField("price");
+      setSortType("desc");
+    }
+  };
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -48,9 +72,32 @@ const UserCart = () => {
             <p className="text-3xl text-black font-semibold">
               Total Price:${totalPrice}
             </p>
-            <button className="btn text-white bg-[#d1a054] border-none hover:bg-black">
-              Pay
-            </button>
+            <select
+              className="select select-bordered w-full max-w-xs"
+              onChange={handleSorting}
+            >
+              <option disabled selected>
+                sort by price
+              </option>
+              <option>Low to High</option>
+              <option>High to Low</option>
+            </select>
+
+            {cartItems.length > 0 ? (
+              <Link to={"/dashboard/payment"}>
+                {" "}
+                <button className="btn text-white bg-[#d1a054] border-none hover:bg-black">
+                  Pay
+                </button>
+              </Link>
+            ) : (
+              <button
+                disabled
+                className="btn text-white bg-[#d1a054] border-none"
+              >
+                Pay
+              </button>
+            )}
           </div>
           {/* table */}
           <div className="overflow-x-auto mt-12">

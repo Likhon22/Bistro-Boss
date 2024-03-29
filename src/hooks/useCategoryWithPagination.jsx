@@ -1,10 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCategoryWithPagination } from "../Utils/menu";
-const useCategoryWithPagination = ({ category, limit, currentPage }) => {
+const useCategoryWithPagination = ({
+  category,
+  limit,
+  currentPage,
+  sortField,
+  sortType,
+}) => {
   const { data: menus, isLoading } = useQuery({
-    queryKey: ["menu", category,limit,currentPage],
+    queryKey: ["menu", category, limit, currentPage, sortField, sortType],
     queryFn: async () => {
-      return await getCategoryWithPagination(category, limit, currentPage);
+      return await getCategoryWithPagination(
+        category,
+        limit,
+        currentPage,
+        sortField,
+        sortType
+      );
     },
   });
   return [menus, isLoading];

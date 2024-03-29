@@ -5,6 +5,10 @@ export const getRating = async () => {
   return data;
 };
 export const addRating = async (ratingInfo) => {
-  const { data } = await axiosSecure.post("/ratings",ratingInfo);
+  const { data } = await axiosSecure.post("/ratings", ratingInfo);
+  return data;
+};
+export const getRatingForUserEmail = async (email) => {
+  const { data } = await axiosSecure.get(`/ratings/${email}`);
   return data;
 };

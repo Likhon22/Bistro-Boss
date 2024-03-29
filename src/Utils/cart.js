@@ -14,3 +14,9 @@ export const deleteCart = async (id) => {
   const { data } = await axiosSecure.delete(`/carts/${id}`);
   return data;
 };
+export const getCartBySorting = async (email, sortField, sortType) => {
+  const { data } = await axiosSecure.get(
+    `/carts/${email}?sortField=${sortField}&sortType=${sortType}`
+  );
+  return data;
+};
