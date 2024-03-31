@@ -8,6 +8,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/firebase.config";
+import { clearCookie } from "../Utils/jwt";
 
 export const AuthContext = createContext(null);
 
@@ -24,11 +25,11 @@ const AuthProvider = ({ children }) => {
       return unsSubscribe();
     };
   }, []);
-  const update = (name) => {
+  const update = (name, photo) => {
     setLoader(true);
     return updateProfile(auth.currentUser, {
       displayName: name,
-      // photoURL: photo,
+      photoURL: photo,
     });
   };
   const register = (email, password) => {
@@ -41,6 +42,7 @@ const AuthProvider = ({ children }) => {
   };
   const logout = () => {
     setLoader(true);
+    clearCookie();
     return signOut(auth);
   };
   const authInfo = {

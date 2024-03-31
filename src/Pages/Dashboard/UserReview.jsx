@@ -6,6 +6,7 @@ import "@smastrom/react-rating/style.css";
 import useAuth from "./../../hooks/useAuth";
 import { addRating } from "../../Utils/rating";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const UserReview = () => {
   const [ratingValue, setRatingValue] = React.useState(5);
@@ -48,6 +49,9 @@ const UserReview = () => {
           headingText={"GIVE A REVIEW"}
           subText={"Sharing is Caring"}
         ></HeadingText>
+        <Helmet>
+          <title>Dashboard | Add Review</title>
+        </Helmet>
         <div className="w-4/5 mx-auto  ">
           <div className="bg-[#d0d0d0] w-full   items-center gap-5 p-12 mb-32 rounded-lg">
             <div className="flex flex-col justify-center items-center gap-4">

@@ -12,7 +12,9 @@ const CheckoutForm = () => {
   const [transactionId, setTransactionId] = useState("");
   const { user } = useAuth();
   const navigate = useNavigate();
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+  const totalPrice = cart
+    .reduce((total, item) => total + item.price, 0)
+    .toFixed(2);
   console.log(totalPrice);
   const [clientSecret, setClientSecret] = useState("");
   useEffect(() => {

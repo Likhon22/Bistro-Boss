@@ -30,9 +30,9 @@ const AdminPieChart = ({ pieData }) => {
     percent,
     index,
   }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.6;
+    const x = cx + (radius -10) * Math.cos(-midAngle * RADIAN);
+    const y = cy + (radius +30) * Math.sin(-midAngle * RADIAN);
 
     return (
       <text
@@ -56,7 +56,7 @@ const AdminPieChart = ({ pieData }) => {
           cy="50%"
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={80}
+          outerRadius={140}
           fill="#8884d8"
           dataKey="value"
         >

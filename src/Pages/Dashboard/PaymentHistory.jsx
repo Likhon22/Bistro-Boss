@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import { getPaymentHistoryForUser } from "../../Utils/payment";
 import HeadingText from "../../Components/HeadingText/HeadingText";
+import { Helmet } from "react-helmet-async";
 
 const PaymentHistory = () => {
   const { user } = useAuth();
@@ -18,6 +19,9 @@ const PaymentHistory = () => {
   });
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | Payment History</title>
+      </Helmet>
       <HeadingText
         headingText={"wanna add more?"}
         subText={"My Cart"}

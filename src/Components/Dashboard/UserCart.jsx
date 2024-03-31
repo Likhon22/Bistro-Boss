@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const UserCart = () => {
   const { user } = useAuth();
@@ -19,10 +20,12 @@ const UserCart = () => {
       return await getCartBySorting(user?.email, sortField, sortType);
     },
   });
-  const totalPrice = cartItems.reduce(
-    (initialPrice, currentPrice) => initialPrice + currentPrice.price,
-    0
-  );
+  const totalPrice = cartItems
+    .reduce(
+      (initialPrice, currentPrice) => initialPrice + currentPrice.price,
+      0
+    )
+    .toFixed(2);
   const handleSorting = (e) => {
     const selectOptions = e.target.value;
     console.log(selectOptions);
@@ -59,6 +62,9 @@ const UserCart = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | My Cart</title>
+      </Helmet>
       <HeadingText
         headingText={"wanna add more?"}
         subText={"My Cart"}

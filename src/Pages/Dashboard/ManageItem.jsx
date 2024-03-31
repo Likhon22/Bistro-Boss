@@ -8,6 +8,7 @@ import { MdDelete } from "react-icons/md";
 import { FaPen } from "react-icons/fa";
 import Swal from "sweetalert2";
 import UpdateMenuModal from "../../Components/Dashboard/UpdateMenuModal";
+import { Helmet } from "react-helmet-async";
 
 const ManageItem = () => {
   const [role] = useRole();
@@ -54,6 +55,9 @@ const ManageItem = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | Manage Items</title>
+      </Helmet>
       <HeadingText
         headingText={"manage all items"}
         subText={"Hurry Up!"}

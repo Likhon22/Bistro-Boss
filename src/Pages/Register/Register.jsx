@@ -17,25 +17,25 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    // const imageForm = form.image.files[0];
-    // const imageData = await imageBBUpload(imageForm);
+    const imageForm = form.image.files[0];
+    const imageData = await imageBBUpload(imageForm);
     // console.log(imageData);
 
     // console.log(imageData?.data?.display_url);
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    // const userImage = imageData?.data?.display_url;
+    const userImage = imageData?.data?.display_url;
     const userInfo = {
       name,
       email,
       password,
-      // userImage,
+      userImage,
     };
     console.log(userInfo);
     try {
       const data = await register(email, password);
-      await update(name);
+      await update(name, userImage);
       await logout();
       navigate("/login");
       toast.success("Registered Successfully");
@@ -90,7 +90,7 @@ const Register = () => {
                       className="input input-bordered"
                     />
                   </div>
-                  {/* <div className="form-control">
+                  <div className="form-control">
                     <label className="label">
                       <span className="label-text">PhotoUrl</span>
                     </label>
@@ -102,7 +102,7 @@ const Register = () => {
                       id="image"
                       accept="image/*"
                     />
-                  </div> */}
+                  </div>
                   <div className="form-control">
                     <label className="label">
                       <span className="label-text">Password</span>

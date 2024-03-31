@@ -6,6 +6,7 @@ import { FaMoneyCheck, FaUsers, FaShippingFast } from "react-icons/fa";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import QuantityBarChart from "../../Components/Dashboard/QuantityBarChart";
 import AdminPieChart from "./AdminPieChart";
+import { Helmet } from "react-helmet-async";
 
 const AdminHome = () => {
   const { user } = useAuth();
@@ -23,7 +24,7 @@ const AdminHome = () => {
       return await getOrderStats();
     },
   });
-  console.log(orderStats);
+
   const pieData = orderStats.map((data) => {
     return {
       name: data.category,
@@ -32,6 +33,9 @@ const AdminHome = () => {
   });
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | Admin Home</title>
+      </Helmet>
       <div>
         <div className="flex justify-center items-center">
           <TypeAnimation
@@ -92,11 +96,11 @@ const AdminHome = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-4/5 mx-auto items-center justify-center gap-12 mt-12">
-        <div className="w-1/2 ">
+      <div className="flex w-9/12  mx-auto items-center justify-center gap-12 mt-12">
+        <div className="w-1/2 justify-center ">
           <QuantityBarChart orderStats={orderStats}></QuantityBarChart>
         </div>
-        <div className="w-1/2 ">
+        <div className="w-1/2  ">
           <AdminPieChart pieData={pieData}></AdminPieChart>
         </div>
       </div>

@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 
 import useAuth from "../../hooks/useAuth";
 import { saveUser } from "../../Utils/user";
+import { getToken } from "../../Utils/jwt";
 
 const Login = () => {
   const { login, user, loader } = useAuth();
@@ -28,7 +29,8 @@ const Login = () => {
       .then(async (result) => {
         try {
           const dbResponse = await saveUser(result?.user);
-          console.log(result?.user);
+          const tokenResponse = await getToken(result?.user?.email);
+          console.log(result?.user?.email);
         } catch (err) {
           console.log(err);
         }

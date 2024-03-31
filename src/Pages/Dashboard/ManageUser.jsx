@@ -6,6 +6,7 @@ import UpdateUserModal from "../../Components/Dashboard/UpdateUserModal";
 import { useState } from "react";
 
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const ManageUser = () => {
   let [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,7 @@ const ManageUser = () => {
   };
   const handleUserRole = async (role) => {
     console.log(email);
-   
+
     console.log(role);
     const roleInfo = {
       role,
@@ -67,6 +68,9 @@ const ManageUser = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | Manage Users</title>
+      </Helmet>
       <HeadingText
         headingText={"manage all users"}
         subText={"How Many??"}

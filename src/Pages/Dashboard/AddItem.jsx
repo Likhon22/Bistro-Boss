@@ -4,6 +4,7 @@ import { imageBBUpload } from "../../Utils/imageUpload";
 import { addMenu } from "../../Utils/menu";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const AddItem = () => {
   const [selectCategory, setSelectCategory] = useState("");
@@ -28,13 +29,13 @@ const AddItem = () => {
     const imageForm = form.image.files[0];
     console.log(imageForm);
     const recipe = form.recipe.value;
-    // const imageData = await imageBBUpload(imageForm);
-    // console.log(imageData);
+    const imageData = await imageBBUpload(imageForm);
+    console.log(imageData);
     const itemInfo = {
       name,
       price,
       category,
-      // image: imageData?.data?.display_url,
+      image: imageData?.data?.display_url,
       recipe,
       adminEmail: user?.email,
     };
@@ -57,6 +58,9 @@ const AddItem = () => {
   };
   return (
     <div className="bg-[#d0d0d0] overflow-hidden w-4/5 lg:w-2/3  mx-auto  rounded-xl ">
+      <Helmet>
+        <title>Dashboard | Add Item</title>
+      </Helmet>
       <form className=" p-4 md:p-6 lg:p-8" onSubmit={handleSubmit}>
         <div className=" flex flex-col justify-center gap-4 items-center ">
           <div className=" space-y-1 w-full">

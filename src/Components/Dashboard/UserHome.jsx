@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPaymentHistoryForUser } from "../../Utils/payment";
 import { getRatingForUserEmail } from "../../Utils/rating";
 import userImg from "../../assets/assets/user.jpg";
+import { Helmet } from "react-helmet-async";
 
 const UserHome = () => {
   const { user } = useAuth();
@@ -22,6 +23,9 @@ const UserHome = () => {
   const name = user?.displayName ? user?.displayName : "Back";
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | User Home</title>
+      </Helmet>
       <div>
         <div className="flex justify-center items-center">
           <TypeAnimation
