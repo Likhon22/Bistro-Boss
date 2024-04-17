@@ -11,6 +11,11 @@ import app from "../Firebase/firebase.config";
 import { clearCookie } from "../Utils/jwt";
 
 export const AuthContext = createContext(null);
+export const logout = (auth, setLoader) => {
+  setLoader(true);
+  clearCookie();
+  return signOut(auth);
+};
 
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
@@ -40,17 +45,13 @@ const AuthProvider = ({ children }) => {
     setLoader(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
-  const logout = () => {
-    setLoader(true);
-    clearCookie();
-    return signOut(auth);
-  };
+
   const authInfo = {
     user,
     loader,
     login,
     register,
-    logout,
+    logout: () => logout(auth, setLoader),
     update,
   };
   return (

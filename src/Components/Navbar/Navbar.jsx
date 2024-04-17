@@ -8,7 +8,7 @@ const Navbar = () => {
   const { user, logout } = useAuth();
   const [cartItem, refetch] = useCart();
   const [role] = useRole();
-  console.log(cartItem);
+
   const links = (
     <>
       <li>
@@ -72,7 +72,7 @@ const Navbar = () => {
         >
           Our Shop
         </NavLink>
-        {user ? (
+        {user && role !== "Admin" ? (
           <Link to={"/dashboard/user-cart"}>
             {" "}
             <button className="btn bg-black text-white border-0 bg-opacity-0 hover:bg-opacity-0 relative mr-5 ml-2">
