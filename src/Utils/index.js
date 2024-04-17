@@ -2,7 +2,7 @@ import axios from "axios";
 import { clearCookie } from "./jwt";
 
 export const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://bistro-server-two.vercel.app",
   withCredentials: true,
 });
 axiosSecure.interceptors.response.use(
